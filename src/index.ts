@@ -1,6 +1,7 @@
 import { getSteamPrice } from "./steamApi";
 import { getCSMoneySkinsWithRecommendedPrice } from "./csmoneyApi";
 import readline from "readline";
+import CONSTS from "./consts";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -28,9 +29,15 @@ const main = async () => {
   for (const item of items) {
     const steamData = await getSteamPrice(item.asset.names.full);
 
+    console.log("\n");
     console.log(`Item: ${item.asset.names.full}`);
-    console.log(`CSMONEY price: ${item.pricing.computed}`);
-    console.log(`Steam price: ${steamData.highestBuyOrder}`);
+    console.log(`CS.MONEY price: ${item.pricing.computed}`);
+    console.log(`Steam highest buy order: ${steamData.highestBuyOrder}`);
+    console.log(
+      `Estimated earnings after Steam fee: ${(
+        steamData.highestBuyOrder / CONSTS.STEAM_COMMISSION_MULTIPLIER
+      ).toFixed(2)}`
+    );
 
     await sleep(1000);
   }

@@ -15,6 +15,7 @@ const CONSTS = {
   STEAM_PRICE_URL:
     "https://steamcommunity.com/market/itemordershistogram?country=MD&language=english&currency=1",
   STEAM_PRICE_ITEMNAMEID: "item_nameid",
+  STEAM_COMMISSION_MULTIPLIER: 1.15,
 };
 
 export default CONSTS;
