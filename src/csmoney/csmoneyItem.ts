@@ -20,6 +20,10 @@ export class CSMoneyItem implements ICSMoneyItem, MarketItem {
     return this.asset.names.full;
   }
 
+  get url(): string | null {
+    return null;
+  }
+
   id: number;
   appId: number;
   seller: CSMoneySeller;

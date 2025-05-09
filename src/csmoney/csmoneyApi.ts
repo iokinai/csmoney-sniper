@@ -55,4 +55,8 @@ export default class CSMoneyAPI implements MarketAPI {
 
     return CSMoneyItem.fromArray(items);
   }
+
+  name(): string {
+    return "cs.money";
+  }
 }

@@ -6,6 +6,7 @@ import CSMoneyAPI from "./csmoney/csmoneyApi";
 import TradeitAPI from "./tradeit/tradeitApi";
 import { MarketSteamPair, MarketSteamTuple } from "./marketSteamTuple";
 import { isProfitable, onlyProfitableSkins } from "./filters";
+import SteamItem from "./steamapi/steamItem";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -23,28 +24,6 @@ const consoleInput = (question: string): Promise<string> => {
   });
 };
 
-const liveLoadSkinsInfo = async (api: MarketAPI) => {
-  let items = await api.loadSkins();
-  items = api.applyFilters(items);
-
-  for (const item of items) {
-    const steamData = await getSteamPrice(item.steamName);
-
-    console.log("\n");
-    console.log(`Item: ${item.steamName}`);
-    console.log(`Store price: ${item.price}`);
-    console.log(`Steam highest buy order: ${steamData.highestBuyOrder}`);
-    console.log(
-      `Estimated earnings after Steam fee: ${(
-        steamData.highestBuyOrder / CONSTS.STEAM_FEE_MULTIPLIER
-      ).toFixed(2)}`
-    );
-    console.log(`Is profitable: ${isProfitable([item, steamData])}`);
-
-    await sleep(CONSTS.DEFAULT_SLEEP_TIME);
-  }
-};
-
 const loadAllSkinsAndOnlyShowProfitable = async (api: MarketAPI) => {
   let items = await api.loadSkins();
   items = api.applyFilters(items);
@@ -54,10 +33,23 @@ const loadAllSkinsAndOnlyShowProfitable = async (api: MarketAPI) => {
   let loadedItems = 0;
 
   for (const marketItem of items) {
-    const steamItem = await getSteamPrice(marketItem.steamName);
+    let steamItem: SteamItem;
+
+    try {
+      steamItem = await getSteamPrice(marketItem.steamName);
+    } catch (error) {
+      console.error(`Error: ${error}`);
+      break;
+    }
 
     marketSteamTuple.push([marketItem, steamItem]);
 
+    console.clear();
+    console.log(
+      `Since Steam has a limit of 20 requests per minute, we have to load each item with a timeout. The timeout is ${
+        CONSTS.DEFAULT_SLEEP_TIME / 1000
+      }s.`
+    );
     console.log(
       `Loaded ${++loadedItems} items of ${items.length}. It's ${(
         (loadedItems / items.length) *
@@ -72,7 +64,11 @@ const loadAllSkinsAndOnlyShowProfitable = async (api: MarketAPI) => {
 
   MarketSteamPair.fromTupleArray(marketSteamTuple).forEach(
     (item: MarketSteamPair) => {
-      console.log(item.toString());
+      console.log(`Market: ${api.name()}`);
+      console.log(
+        `Item: ${item.marketItem.steamName}\nMarket price: \$${item.marketItem.price}\nSteam price (instant sale): \$${item.steamItem.highestBuyOrder}\nEarnings after fee (real income): \$${item.steamItem.highestBuyEarningAfterFee}\nProfit: \$${item.profit}\nMarket url: ${item.marketItem.url}`
+      );
+      console.log("\n");
     }
   );
 };

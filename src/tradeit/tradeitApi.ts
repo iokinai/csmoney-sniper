@@ -28,6 +28,10 @@ export default class TradeitAPI implements MarketAPI {
 
     return TradeitItem.fromArray(items);
   }
+
+  name(): string {
+    return "tradeit.gg";
+  }
 }
 
 // https://tradeit.gg/api/v2/inventory/data?gameId=730&offset=0&limit=120&sortType=Price+-+low&searchValue=&minPrice=18&maxPrice=20&minFloat=0&maxFloat=1&sticker=false&showTradeLock=true&onlyTradeLock=false&colors=&showUserListing=true&stickerName=&context=store&fresh=true&isForStore=1

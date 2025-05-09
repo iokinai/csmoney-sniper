@@ -7,9 +7,11 @@ export type GetSkinsInput = {
 export interface MarketItem {
   get price(): number;
   get steamName(): string;
+  get url(): string | null;
 }
 
 export interface MarketAPI {
   loadSkins(): Promise<MarketItem[]>;
   applyFilters(input: MarketItem[]): MarketItem[];
+  name(): string;
 }

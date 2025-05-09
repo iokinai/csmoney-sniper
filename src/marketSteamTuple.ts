@@ -1,5 +1,6 @@
 import { MarketItem } from "./marketApi";
 import SteamItem from "./steamapi/steamItem";
+import { round2 } from "./utils";
 
 export type MarketSteamTuple = [MarketItem, SteamItem];
 
@@ -17,24 +18,12 @@ export class MarketSteamPair {
   }
 
   public get profit(): number {
-    return Math.round(
+    return round2(
       this.steamItem.highestBuyEarningAfterFee - this.marketItem.price
     );
   }
 
   public toTuple(): MarketSteamTuple {
     return [this.marketItem, this.steamItem];
-  }
-
-  private _tostring(): string {
-    return `Item: ${this.marketItem.steamName}\nMarket price: ${this.marketItem.price}\nSteam price: ${this.steamItem.highestBuyEarningAfterFee}\nProfit: ${this.profit}`;
-  }
-
-  public toString(): string {
-    return this._tostring();
-  }
-
-  public get [Symbol.toStringTag](): string {
-    return this._tostring();
   }
 }

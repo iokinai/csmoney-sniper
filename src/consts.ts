@@ -15,7 +15,7 @@ const CONSTS = {
   STEAM_PRICE_URL:
     "https://steamcommunity.com/market/itemordershistogram?country=MD&language=english&currency=1",
   STEAM_PRICE_ITEMNAMEID: "item_nameid",
-  STEAM_FEE_MULTIPLIER: 1.15,
+  STEAM_FEE_MULTIPLIER: 0.85,
   TRADEIT_BASE_URL: "https://tradeit.gg/api/v2/inventory/data",
   TRADEIT_GAMEID_PARAM: "gameId",
   TRADEIT_OFFSET_PARAM: "offset",
@@ -28,8 +28,9 @@ const CONSTS = {
   TRADEIT_CONTEXT_PARAM: "context",
   TRADEIT_CONTEXT_PARAM_DEFAULT: "store",
   TRADEIT_ISFORSTORE_PARAM: "isForStore",
+  TRADEIT_ITEM_BASE_URL: "https://tradeit.gg/ru/csgo/item/",
 
-  DEFAULT_SLEEP_TIME: 2000,
+  DEFAULT_SLEEP_TIME: 4000,
 };
 
 export default CONSTS;
