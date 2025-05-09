@@ -1,3 +1,4 @@
+import CONSTS from "../consts";
 import { SteamItemGraphArray, SteamItemGraph } from "./steamItemGraph";
 
 export interface ISteamItem {
@@ -30,6 +31,10 @@ export default class SteamItem {
 
   public get highestBuyOrder(): number {
     return this.item.highest_buy_order / 100;
+  }
+
+  public get highestBuyEarningAfterFee(): number {
+    return Math.round(this.highestBuyOrder / CONSTS.STEAM_FEE_MULTIPLIER);
   }
 
   public get lowestSellOrder(): number {

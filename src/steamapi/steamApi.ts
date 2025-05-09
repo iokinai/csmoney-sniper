@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import CONSTS from "./consts";
-import SteamItem, { ISteamItem } from "./steamapi/steamItem";
+import CONSTS from "../consts";
+import SteamItem, { ISteamItem } from "./steamItem";
 import fs from "fs";
 
 const getSteamItemNameID = async (

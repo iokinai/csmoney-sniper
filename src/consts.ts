@@ -15,7 +15,21 @@ const CONSTS = {
   STEAM_PRICE_URL:
     "https://steamcommunity.com/market/itemordershistogram?country=MD&language=english&currency=1",
   STEAM_PRICE_ITEMNAMEID: "item_nameid",
-  STEAM_COMMISSION_MULTIPLIER: 1.15,
+  STEAM_FEE_MULTIPLIER: 1.15,
+  TRADEIT_BASE_URL: "https://tradeit.gg/api/v2/inventory/data",
+  TRADEIT_GAMEID_PARAM: "gameId",
+  TRADEIT_OFFSET_PARAM: "offset",
+  TRADEIT_LIMIT_PARAM: "limit",
+  TRADEIT_SORT_PARAM: "sortType",
+  TRADEIT_SORT_PARAM_DEFAULT: "Price+-+low",
+  TRADEIT_MINPRICE_PARAM: "minPrice",
+  TRADEIT_MAXPRICE_PARAM: "maxPrice",
+  TRADEIT_STICKER_PARAM: "sticker",
+  TRADEIT_CONTEXT_PARAM: "context",
+  TRADEIT_CONTEXT_PARAM_DEFAULT: "store",
+  TRADEIT_ISFORSTORE_PARAM: "isForStore",
+
+  DEFAULT_SLEEP_TIME: 2000,
 };
 
 export default CONSTS;

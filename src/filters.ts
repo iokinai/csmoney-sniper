@@ -1,20 +1,13 @@
-import CSMoneyItem from "./csmoney/csmoneyItem";
+import { MarketItem } from "./marketApi";
+import { MarketSteamTuple } from "./marketSteamTuple";
+import SteamItem from "./steamapi/steamItem";
 
-export const withoutStickersFilter = (items: CSMoneyItem[]): CSMoneyItem[] => {
-  return items.filter((item: CSMoneyItem) => {
-    return item.stickers === null || item.stickers.length === 0;
+export const onlyProfitableSkins = (skins: MarketSteamTuple[]) => {
+  return skins.filter(([market, steam]) => {
+    return steam.highestBuyEarningAfterFee > market.price;
   });
 };
 
-export const bestDiscountFilter = (
-  items: CSMoneyItem[],
-  minDiscount: number = 0
-): CSMoneyItem[] => {
-  const good = items.filter((item: CSMoneyItem) => {
-    return item.pricing.discount >= minDiscount;
-  });
-
-  if (good.length > 0) return good;
-
-  return bestDiscountFilter(items, minDiscount - 0.05);
+export const isProfitable = ([market, steam]: MarketSteamTuple): boolean => {
+  return steam.highestBuyEarningAfterFee > market.price;
 };
